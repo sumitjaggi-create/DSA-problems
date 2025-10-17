@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<int> rearrangeArray(vector<int>& nums) {
+        vector<int> v1; // positives
+        vector<int> v2; // negatives
+        vector<int> v3; // result
+
+        for (int num : nums) {
+            if (num > 0) v1.push_back(num);
+            else v2.push_back(num);
+        }
+
+        int posIndex = 0;
+        int negIndex = 0;
+
+        for (int i = 0; i < nums.size(); i++) {
+            if (i % 2 == 0) {
+                v3.push_back(v1[posIndex++]);
+            } else {
+                v3.push_back(v2[negIndex++]);
+            }
+        }
+
+        return v3;
+    }
+};
