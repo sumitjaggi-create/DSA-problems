@@ -1,0 +1,47 @@
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+
+        int n = nums.size();
+        vector<int> prefixsum(n, 0);
+        int count = 0;
+        prefixsum[0] = nums[0];
+
+        // Step 1: Create prefix sum array
+        for (int i = 1; i < n; i++) {
+            prefixsum[i] = prefixsum[i - 1] + nums[i];
+        }
+
+        // Step 2: Hash map to store prefix sum values and their frequencies
+        unordered_map<int, int> m;
+
+        // Step 3: Traverse the prefix sum array
+        for (int j = 0; j < n; j++) {
+
+            // Case 1: If prefixsum[j] itself equals k, that means subarray (0...j) has sum = k
+            if (prefixsum[j] == k) {
+                count++;
+            }
+
+            // Case 2: Check if there exists a prefix sum such that:
+            // prefixsum[j] - prefixsum[i] = k  =>  prefixsum[i] = prefixsum[j] - k
+            int value = prefixsum[j] - k;
+
+            // If such a prefix sum exists in the map, it means we found subarray(s) with sum = k
+            if (m.find(value) != m.end()) {
+                count += m[value]; // add the number of times that prefix sum appeared
+            }
+
+            // If current prefix sum not in map, initialize its frequency to 0
+            if (m.find(prefixsum[j]) == m.end()) {
+                m[prefixsum[j]] = 0;
+            }
+
+            // Increase the frequency of current prefix sum
+            // (It will be useful for future subarray calculations)
+            m[prefixsum[j]]++;
+        }
+
+        return count;
+    }
+};
