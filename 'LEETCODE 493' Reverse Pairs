@@ -47,10 +47,10 @@ public:
 
             int count1 = mergeSort(nums, st, mid);
             int count2 = mergeSort(nums, mid + 1, end);
-            int count4 = countPairs(nums, st, mid, end);
+            int count3 = countPairs(nums, st, mid, end);
             merge(nums, st, end, mid);
 
-            return count1 + count2 + count4;
+            return count1 + count2 + count3;
         }
         return 0;
     }
