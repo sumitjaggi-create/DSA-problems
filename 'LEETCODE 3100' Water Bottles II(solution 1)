@@ -1,0 +1,26 @@
+class Solution {
+public:
+
+   // using simple logic  
+   
+    int maxBottlesDrunk(int numBottles, int numExchange) {
+
+        int drink = 0;
+        int emptyBottle = 0;
+        int x = numExchange, n = numBottles;
+
+        while (n != 0 || emptyBottle >= x) {
+            if (n > 0 && emptyBottle < x) {
+
+                drink = drink + n;
+                emptyBottle = emptyBottle + n;
+                n = 0;
+            } else {
+                n = n + 1;
+                emptyBottle = emptyBottle - x;
+                x = x + 1;
+            }
+        }
+        return drink;
+    }
+};
