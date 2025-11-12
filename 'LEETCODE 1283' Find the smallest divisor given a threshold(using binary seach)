@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int absValue(vector<int>& nums, int mid, int threshold) {
+
+        int sum = 0;
+        for (int i : nums) {
+            sum += ceil((double)i / mid);
+        }
+        return sum <= threshold;
+    }
+    int smallestDivisor(vector<int>& nums, int threshold) {
+
+        int n = nums.size();
+        int minDivisor = 1, maxDivisor = *max_element(nums.begin(), nums.end());
+        int ans = -1;
+
+        while (minDivisor <= maxDivisor) {
+            int mid = minDivisor + (maxDivisor - minDivisor) / 2;
+
+            if (absValue(nums, mid, threshold)) {
+                ans = mid;
+                maxDivisor = mid - 1;
+            } else {
+                minDivisor = mid + 1;
+            }
+        }
+        return ans;
+    }
+};
